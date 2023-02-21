@@ -6,16 +6,16 @@ import {
   forwardRef,
   HostListener,
   Inject,
+  Input,
   KeyValueDiffer,
   KeyValueDiffers,
-  Input,
   OnInit,
-  Optional
-} from "@angular/core";
+  Optional,
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {CurrencyMaskConfig, CURRENCY_MASK_CONFIG, CurrencyMaskInputMode} from "./currency-mask.config";
-import {InputHandler} from "./input.handler";
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskInputMode } from './currency-mask.config';
+import { InputHandler } from './input.handler';
 
 export const CURRENCYMASKDIRECTIVE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -86,7 +86,7 @@ export class CurrencyMaskDirective implements AfterViewInit, ControlValueAccesso
 
   @HostListener("input", ["$event"])
   handleInput(event: any) {
-    if (this.isChromeAndroid()) {
+    if (!this.isChromeAndroid()) {
       !this.isReadOnly() && this.inputHandler.handleInput(event);
     }
   }
